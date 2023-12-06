@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.integrate import quad
 
 # User Input
 N = 11  # Number of nodes
@@ -7,7 +8,7 @@ xl = 0.0  # Left boundary
 xr = 1.0  # Right boundary
 T0 = 0.0  # Initial time
 Tf = 1.551  # Final time
-dt = 0.00181488203  # Time step around 1/551
+dt = 1/551  # Time step around 1/551
 ud_left = 0.0  # Dirichlet boundary condition at left
 ud_right = 0.0  # Dirichlet boundary condition at right
 
@@ -17,31 +18,44 @@ h = (xr - xl) / (N - 1)
 x = np.linspace(xl, xr, N)
 iee = np.array([np.arange(i, i + 2) for i in range(Ne)])
 
-# Define parent grid [-1, 1] basis functions and derivatives
-xi = np.array([-1 / np.sqrt(3), 1 / np.sqrt(3)])
+# Define Lagrange basis functions and derivatives
+def lagrange_basis(xi, x, i):
+    result = 1.0
+    for j in range(len(x)):
+        if j != i:
+            result *= (xi - x[j]) / (x[i] - x[j])
+    return result
 
-def phi(xi):
-    return 0.5 * np.array([1 - xi, 1 + xi])
-
-def dphi_dxi(xi):
-    return 0.5 * np.array([-1, 1])
+def lagrange_derivative(xi, x, i):
+    result = 0.0
+    for j in range(len(x)):
+        if j != i:
+            result += 1 / (x[i] - x[j])
+    return result
 
 # Initialize matrices
 K = np.zeros((N, N))
 M = np.zeros((N, N))
 F = np.zeros(N)
 
-# Assemble mass and stiffness matrices
+# Assemble mass and stiffness matrices using 2nd order Gaussian quadrature
 for k in range(Ne):
-    J = h / 2  # Jacobian for 1D linear mapping
     x_elem = x[iee[k]]
+    J = h / 2  # Jacobian for 1D linear mapping
 
     for l in range(2):
+        xi_l, w_l = np.polynomial.legendre.leggauss(2)
+        xi_local = 0.5 * (x_elem[0] + x_elem[1]) + 0.5 * (x_elem[1] - x_elem[0]) * xi_l[l]
+        w_local = 0.5 * (x_elem[1] - x_elem[0]) * w_l[l]
+
         for m in range(2):
-            phi_l = phi(xi[l])
-            phi_m = phi(xi[m])
-            M[iee[k, l], iee[k, m]] += np.dot(phi_l, phi_m) * J
-            K[iee[k, l], iee[k, m]] += np.dot(dphi_dxi(xi[l]), dphi_dxi(xi[m])) * J
+            phi_l = lagrange_basis(xi_local, x_elem, m)
+            phi_m = lagrange_basis(xi_local, x_elem, l)
+            dphi_dxi_l = lagrange_derivative(xi_local, x_elem, m)
+            dphi_dxi_m = lagrange_derivative(xi_local, x_elem, l)
+
+            M[iee[k, l], iee[k, m]] += phi_l * phi_m * J * w_local
+            K[iee[k, l], iee[k, m]] += dphi_dxi_l * dphi_dxi_m * J * w_local
 
 # Apply Dirichlet boundary conditions to stiffness matrix
 K[0, :] = 0
@@ -62,18 +76,21 @@ while dt <= max_dt:
     for n in range(1, nt + 1):
         ctime = T0 + n * dt
 
-        # Build the time-dependent R.H.S. vector
+        # Build the time-dependent R.H.S. vector using 2nd order Gaussian quadrature
         F[:] = 0
 
         for k in range(Ne):
-            J = h / 2  # Jacobian for 1D linear mapping
             x_elem = x[iee[k]]
+            J = h / 2  # Jacobian for 1D linear mapping
 
             for l in range(2):
-                xi_local = xi[l]
-                f_local = (np.pi**2 - 1) * np.exp(-ctime) * np.sin(np.pi * (x_elem[0] + xi_local * h / 2))
-                phi_l = phi(xi_local)
-                F[iee[k, l]] += f_local * phi_l[l] * J
+                xi_l, w_l = np.polynomial.legendre.leggauss(2)
+                xi_local = 0.5 * (x_elem[0] + x_elem[1]) + 0.5 * (x_elem[1] - x_elem[0]) * xi_l[l]
+                w_local = 0.5 * (x_elem[1] - x_elem[0]) * w_l[l]
+
+                f_local = (np.pi**2 - 1) * np.exp(-ctime) * np.sin(np.pi * xi_local)
+                phi_l = lagrange_basis(xi_local, x_elem, l)
+                F[iee[k, l]] += f_local * phi_l * J * w_local
 
         # Update the solution using forward Euler
         u = u + dt * np.linalg.solve(M, F)
