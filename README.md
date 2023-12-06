@@ -1,6 +1,6 @@
 # Fine-Element-Heat-Transfer-Project
 ## What is in the Repository?
-In this repository, you will find three different files.
+In this repository, you will find three different files. 
 ## Weak Form
 ### Project Prompt Part 1) Derive the weak form of this equation by-hand on paper and submit with your code.
 Before we dive into what the file entails, let's discuss what the weak form is.
@@ -23,4 +23,23 @@ When the time-step is equal to or greater than the spatial step size, the backwa
 In summary, backward Euler is more robust in handling larger time-step sizes, and it remains stable even when the time-step is equal to or greater than the spatial step size.
 ### Results
 ## What are the differences between the two methods?
+### Viewing the different conditions
+With the given project prompt, the Forward Euler Method becomes unstable as the time steps increase. The stability of the Forward Euler Method is subject to the Courant-Friedrichs-Lewy (CFL) condition, which is a necessary condition for stability in numerical methods, especially for solving partial differential equations like the heat equation. The time step must be small enough compared to the spatial grid size and the diffusivity to ensure stability. If the time step exceeds this limit, the forward Euler method becomes numerically unstable, leading to unphysical oscillations and growing solution amplitudes. As you increase the time step (Δt), you might be violating the CFL condition, making the numerical solution unstable. The instability becomes more pronounced as the time step increases, and you observe unphysical behavior in the solution.
+
+With the plots provided by the Backward Euler Method, the plots become more stable as the time steps increase! While the Backward Euler Method is unconditionally stable, its accuracy may depend on the time step size. Smaller time steps usually result in more accurate numerical solutions. However, if the time step becomes extremely small, numerical precision issues may arise, causing instability.
+
+### Stable Conditions
+If you look into the different plots from both methods, you will find that the Forward Euler Method and the Backward Euler Method have very similar parabolic shapes when given the same stable conditions. However, if you look at the y-axis for both plots you can find that the peak is drastically different. Why is that?
+
+The difference in peak values between the forward Euler and backward Euler methods is likely due to the stability characteristics and numerical dissipation introduced by each method.
+
+Numerical Dissipation: The forward Euler method is known for introducing numerical dissipation, which tends to smooth out high-frequency components in the solution. This numerical dissipation can be beneficial for stabilizing the solution, especially when the time step is relatively large. However, it can also lead to a damping effect, reducing the amplitude of oscillations in the solution.
+
+Stability Characteristics: The forward Euler method is conditionally stable, meaning there are restrictions on the time step for stability. If the time step exceeds certain limits (related to the CFL condition), the solution becomes unstable. On the other hand, the backward Euler method is unconditionally stable for linear problems, allowing for larger time steps without stability concerns.
+
+Accuracy and Truncation Errors: The backward Euler method generally provides more accurate results than the forward Euler method for the same time step. The backward Euler method is an implicit scheme, which means it involves solving a linear system at each time step. This implicit treatment can lead to better accuracy, especially for stiff problems.
+
+Analytical Solution Discrepancy: It's important to note that the analytical solution serves as a reference, and discrepancies between numerical and analytical solutions may arise due to various factors, including numerical approximations, time step size, and the nature of the problem.
+
+In summary, while the backward Euler method may yield a closer match to the analytical solution in terms of peak values, the forward Euler method introduces more numerical dissipation, potentially leading to a smoother and less oscillatory solution. The choice between these methods often involves a trade-off between stability, accuracy, and computational efficiency. Experimenting with different time step sizes and numerical methods can help find a balance that meets the requirements of your specific problem.
 ## What did I learn from this?
