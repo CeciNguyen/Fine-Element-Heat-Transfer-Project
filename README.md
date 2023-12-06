@@ -1,6 +1,6 @@
 # Fine-Element-Heat-Transfer-Project
 ## What is in the Repository?
-In this repository, you will find three different files. 
+In this repository, you will find two programs and three different files.
 
 
 ## Weak Form
@@ -108,13 +108,17 @@ If you look into the different plots from both methods, you will find that the F
 
 The difference in peak values between the forward Euler and backward Euler methods is likely due to the stability characteristics and numerical dissipation introduced by each method.
 
-Numerical Dissipation: The forward Euler method is known for introducing numerical dissipation, which tends to smooth out high-frequency components in the solution. This numerical dissipation can be beneficial for stabilizing the solution, especially when the time step is relatively large. However, it can also lead to a damping effect, reducing the amplitude of oscillations in the solution.
+#### Numerical Dissipation: 
+The forward Euler method is known for introducing numerical dissipation, which tends to smooth out high-frequency components in the solution. This numerical dissipation can be beneficial for stabilizing the solution, especially when the time step is relatively large. However, it can also lead to a damping effect, reducing the amplitude of oscillations in the solution.
 
-Stability Characteristics: The forward Euler method is conditionally stable, meaning there are restrictions on the time step for stability. If the time step exceeds certain limits (related to the CFL condition), the solution becomes unstable. On the other hand, the backward Euler method is unconditionally stable for linear problems, allowing for larger time steps without stability concerns.
+#### Stability Characteristics: 
+The forward Euler method is conditionally stable, meaning there are restrictions on the time step for stability. If the time step exceeds certain limits (related to the CFL condition), the solution becomes unstable. On the other hand, the backward Euler method is unconditionally stable for linear problems, allowing for larger time steps without stability concerns.
 
-Accuracy and Truncation Errors: The backward Euler method generally provides more accurate results than the forward Euler method for the same time step. The backward Euler method is an implicit scheme, which means it involves solving a linear system at each time step. This implicit treatment can lead to better accuracy, especially for stiff problems.
+#### Accuracy and Truncation Errors: 
+The backward Euler method generally provides more accurate results than the forward Euler method for the same time step. The backward Euler method is an implicit scheme, which means it involves solving a linear system at each time step. This implicit treatment can lead to better accuracy, especially for stiff problems.
 
-Analytical Solution Discrepancy: It's important to note that the analytical solution serves as a reference, and discrepancies between numerical and analytical solutions may arise due to various factors, including numerical approximations, time step size, and the nature of the problem.
+#### Analytical Solution Discrepancy: 
+It's important to note that the analytical solution serves as a reference, and discrepancies between numerical and analytical solutions may arise due to various factors, including numerical approximations, time step size, and the nature of the problem.
 
 In summary, while the backward Euler method may yield a closer match to the analytical solution in terms of peak values, the forward Euler method introduces more numerical dissipation, potentially leading to a smoother and less oscillatory solution. The choice between these methods often involves a trade-off between stability, accuracy, and computational efficiency. Experimenting with different time step sizes and numerical methods can help find a balance that meets the requirements of your specific problem.
 
