@@ -41,9 +41,9 @@ Generates plots of the numerical solution at each iteration with different time 
 Computes an analytical solution at the final time for comparison.
 
 #### Usage:
-</p> Adjust parameters such as the number of nodes, boundaries, initial and final time, and boundary conditions in the user input section. 
-</p> Run the script to obtain numerical solutions for different time steps. Plots will be generated to visualize the results. 
-</p> The script includes an adaptive time-stepping mechanism to avoid instability. The maximum allowable time step is also displayed.
+<p> Adjust parameters such as the number of nodes, boundaries, initial and final time, and boundary conditions in the user input section. </p>
+<p> Run the script to obtain numerical solutions for different time steps. Plots will be generated to visualize the results. </p>
+<p> The script includes an adaptive time-stepping mechanism to avoid instability. The maximum allowable time step is also displayed. </p>
 
 #### Dependencies:
 NumPy
@@ -51,7 +51,9 @@ Matplotlib
 SciPy
 
 ### Results
-So, what happens when the time step increases? As seen in the given plots, the peaks of each parabolic graph increase but, why? The increasing peak in the plots might be related to numerical instability. The explicit forward Euler method you are using for time integration is conditionally stable, meaning there is a maximum time step beyond which the solution becomes unstable. With my code, I found that the maximum allowable dt before instability occurs is 0.1161524500907441.
+<p> So, what happens when the time step increases? As seen in the given plots, the peaks of each parabolic graph increase but, why? The increasing peak in the plots might be related to numerical instability. The explicit forward Euler method you are using for time integration is conditionally stable, meaning there is a maximum time step beyond which the solution becomes unstable. With my code, I found that the maximum allowable dt before instability occurs is 0.1161524500907441. </p>
+
+<p>How does the solution change as N decreases? The graph becomes less defined and the peak becomes lower. Why? As the number of nodes decreases and the spatial grid becomes coarser, the numerical solution may lose accuracy, exhibit a smoother profile, and potentially result in a lower peak value. It's essential to strike a balance between computational efficiency (which benefits from coarser grids) and the need for accurate representation of the solution features (which benefits from finer grids). Experimenting with different spatial resolutions and assessing the impact on the solution can help in understanding the trade-offs involved. </p>
 
 ## Backward Euler Method
 
