@@ -32,9 +32,9 @@ Generates plots of the numerical solution at each iteration with different time 
 8. Analytical Solution:
 Computes an analytical solution at the final time for comparison.
 #### Usage:
-Adjust parameters such as the number of nodes, boundaries, initial and final time, and boundary conditions in the user input section.
-Run the script to obtain numerical solutions for different time steps. Plots will be generated to visualize the results.
-The script includes an adaptive time-stepping mechanism to avoid instability. The maximum allowable time step is also displayed.
+  Adjust parameters such as the number of nodes, boundaries, initial and final time, and boundary conditions in the user input section.
+  Run the script to obtain numerical solutions for different time steps. Plots will be generated to visualize the results.
+  The script includes an adaptive time-stepping mechanism to avoid instability. The maximum allowable time step is also displayed.
 #### Dependencies:
 NumPy
 Matplotlib
