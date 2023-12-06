@@ -1,7 +1,16 @@
 # Fine-Element-Heat-Transfer-Project
 ## What is in the Repository?
 In this repository, you will find two programs and three different files.
-
+#### BEM plots.pdf
+This is where you can find all the plots for the Backward Euler Method ranging from time steps 0.000181 to 1.814.
+#### FEM plots.pdf
+This is where you can find all the plots for the Forward Euler Method ranging from 2 Nodes to 11 Nodes. Each Node plot is broken down with time steps ranging from 0.00181 to 0.116.
+#### WeakForm.pdf
+This is where you can find how I solved the weak form of the heat equation given in the project prompt.
+#### backwardEulerTest.py
+This is where you can find the Backward Euler Method code used to answer the third prompt of the project.
+#### forwardEulerTest.py
+This is where you can find the Forward Euler Method code used to answer the second prompt of the project.
 
 ## Weak Form
 
@@ -124,3 +133,66 @@ In summary, while the backward Euler method may yield a closer match to the anal
 
 
 ## What did I learn from this?
+It is safe to say that I learned a lot from coding this project (about myself and the subject). 
+
+### Learnings from Forward Euler Implementation:
+Numerical Solution Using Forward Euler:
+#### Finite Element Method:
+The code applies the finite element method to solve a 1D heat transfer problem with Dirichlet boundary conditions.
+#### Lagrange Basis Functions:
+Lagrange basis functions and their derivatives are employed to interpolate and differentiate within the elements.
+#### Matrix Assembly with Gaussian Quadrature:
+Mass (M) and stiffness (K) matrices are assembled using second-order Gaussian quadrature to integrate over the elements.
+#### Dirichlet Boundary Conditions:
+Dirichlet boundary conditions are enforced by modifying the stiffness matrix.
+#### Time Integration with Forward Euler:
+Forward Euler method is used for time integration, updating the solution at each time step.
+#### Adaptive Time Stepping:
+The code employs adaptive time stepping, iteratively doubling the time step until instability is reached, with a maximum allowable time step.
+#### Plotting and Visualization:
+The numerical solution is visualized at different time steps, and the analytical solution at the final time is compared.
+#### Stability Check:
+The code checks for numerical instability by examining if the solution contains NaN or Inf values.
+
+
+Forward Euler Limitations:
+#### Instability: 
+Forward Euler may become unstable for large time steps, leading to inaccurate results or divergence.
+#### Courant-Friedrichs-Lewy (CFL) Condition: 
+Care must be taken to ensure the time step adheres to the CFL stability condition for explicit methods.
+
+### Learnings from Backward Euler Implementation:
+Numerical Solution Using Backward Euler:
+#### Finite Element Method:
+The code applies the finite element method to solve the same 1D heat transfer problem with Dirichlet boundary conditions.
+#### Parent Grid Basis Functions:
+Parent grid basis functions and their derivatives are utilized for element-wise calculations.
+#### Matrix Assembly:
+Mass (M) and stiffness (K) matrices are assembled for the finite element problem.
+#### Dirichlet Boundary Conditions:
+Dirichlet boundary conditions are applied by modifying both the stiffness and mass matrices.
+#### Backward Euler Time Integration:
+Backward Euler method is employed for time integration, providing unconditional stability for linear problems.
+#### Plotting and Visualization:
+The numerical solution is visualized at different time steps, and the analytical solution at the final time is compared.
+Backward Euler Advantages:
+#### Stability:
+Backward Euler is unconditionally stable for linear problems, allowing for larger time steps without compromising stability.
+##### Implicit Time Stepping:
+The implicit nature of Backward Euler can be advantageous for stiff problems.
+
+### General Observations:
+#### Comparison of Methods: 
+Both methods are implemented to solve the same problem, allowing for a comparison of their stability, accuracy, and computational efficiency.
+
+#### Adaptive Time Stepping vs. Fixed Time Stepping: 
+The Forward Euler implementation employs adaptive time stepping, while the Backward Euler method uses a fixed time step. This difference affects the stability and accuracy of the solutions.
+
+#### Numerical vs. Analytical Solutions: 
+The numerical solutions are compared with the analytical solution at the final time to assess accuracy.
+
+#### Code Structure:
+Both implementations share similarities in terms of matrix assembly, boundary condition application, and visualization, providing insights into the general structure of finite element heat transfer solvers.
+
+
+I think that this project really tested my limits and my overall understanding of the course. Although this was a very difficult project to finish and to navigate, I am proud that I was able to get to the finish line and showcase my learnings with you. I am sure as you navigate through my repository you will find things I can improve on and I would love to hear the feedback! Thank you for a great semester and I hope you enjoy my project!
