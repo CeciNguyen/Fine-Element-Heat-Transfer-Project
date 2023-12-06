@@ -51,7 +51,7 @@ Matplotlib
 SciPy
 
 ### Results
-
+So, what happens when the time step increases? As seen in the given plots, the peaks of each parabolic graph increase but, why? The increasing peak in the plots might be related to numerical instability. The explicit forward Euler method you are using for time integration is conditionally stable, meaning there is a maximum time step beyond which the solution becomes unstable. With my code, I found that the maximum allowable dt before instability occurs is 0.1161524500907441.
 
 ## Backward Euler Method
 
