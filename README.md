@@ -3,6 +3,12 @@
 In this repository, you will find three different files.
 ## Weak Form
 ### Project Prompt Part 1) Derive the weak form of this equation by-hand on paper and submit with your code.
+Before we dive into what the file entails, let's discuss what the weak form is.
+#### What is the Weak Form?
+The weak form is a mathematical reformulation of a partial differential equation (PDE) that is more amenable to numerical approximation, particularly in the context of finite element methods. It is derived by multiplying the PDE by a test function and integrating it over the problem domain.
+Once the weak form is derived, numerical methods like finite element methods can be applied to approximate the solution by discretizing the domain and replacing the continuous functions with finite-dimensional approximations. The weak form provides a more flexible and general framework for numerical simulations, allowing for easy adaptation to different geometries, boundary conditions, and types of problems.
+#### What is in the file?
+The pdf file contains the weak form of the heat transfer equation given by the project prompt.
 ## Forward Euler Method
 ### Project Prompt Part 2) Solve first by using a forward Euler time derivative discretization with a time-step of Δ𝑡 = 1/551. Plot the results at the final time. Increase the time-step until you find the instability. What dt does this occur at? How does the solution change as N decreases?
 ### Results
