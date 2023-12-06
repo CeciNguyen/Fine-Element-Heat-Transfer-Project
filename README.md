@@ -24,21 +24,21 @@ This Python script solves a one-dimensional heat transfer problem using the Fini
 
 #### Key Features:
 1. Finite Element Method:
-Discretizes the domain into elements and solves the heat transfer problem numerically.
+- Discretizes the domain into elements and solves the heat transfer problem numerically.
 2. Gaussian Quadrature:
-Utilizes Gaussian quadrature for numerical integration when assembling mass and stiffness matrices.
+- Utilizes Gaussian quadrature for numerical integration when assembling mass and stiffness matrices.
 3. Time Integration:
-Employs the Forward Euler method for time discretization. Updates the solution at each time step.
+- Employs the Forward Euler method for time discretization. Updates the solution at each time step.
 4. Dirichlet Boundary Conditions:
-Applies Dirichlet boundary conditions by modifying the stiffness matrix.
+- Applies Dirichlet boundary conditions by modifying the stiffness matrix.
 5. Adaptive Time Stepping:
-Implements an adaptive time-stepping approach to handle stability. Starts with a small time step and increases it iteratively.
+- Implements an adaptive time-stepping approach to handle stability. Starts with a small time step and increases it iteratively.
 6. Instability Check:
-Monitors for instability by checking for NaN or Inf values in the solution.
+- Monitors for instability by checking for NaN or Inf values in the solution.
 7. Plotting:
-Generates plots of the numerical solution at each iteration with different time steps.
+- Generates plots of the numerical solution at each iteration with different time steps.
 8. Analytical Solution:
-Computes an analytical solution at the final time for comparison.
+- Computes an analytical solution at the final time for comparison.
 
 #### Usage:
 <p> Adjust parameters such as the number of nodes, boundaries, initial and final time, and boundary conditions in the user input section. </p>
@@ -51,13 +51,48 @@ Matplotlib
 SciPy
 
 ### Results
-<p> So, what happens when the time step increases? As seen in the given plots, the peaks of each parabolic graph increase but, why? The increasing peak in the plots might be related to numerical instability. The explicit forward Euler method you are using for time integration is conditionally stable, meaning there is a maximum time step beyond which the solution becomes unstable. With my code, I found that the maximum allowable dt before instability occurs is 0.1161524500907441. </p>
+<p> So, what happens when the time step increases? As seen in the given plots, the peaks of each parabolic graph increase but, why? The increasing peak in the plots might be related to numerical instability. The explicit Forward Euler method I used for time integration is conditionally stable, meaning there is a maximum time step beyond which the solution becomes unstable. With my code, I found that the maximum allowable dt before instability occurs is 0.1161524500907441. </p>
 
 <p>How does the solution change as N decreases? The graph becomes less defined and the peak becomes lower. Why? As the number of nodes decreases and the spatial grid becomes coarser, the numerical solution may lose accuracy, exhibit a smoother profile, and potentially result in a lower peak value. It's essential to strike a balance between computational efficiency (which benefits from coarser grids) and the need for accurate representation of the solution features (which benefits from finer grids). Experimenting with different spatial resolutions and assessing the impact on the solution can help in understanding the trade-offs involved. </p>
 
 ## Backward Euler Method
 
 ### Project Prompt Part 3) Part Solve the same problem with the same time-steps using an implicit backward Euler. What happens as the time-step is equal to or greater than the spatial step size? Explain why.
+Before we get into the questions, let's discuss the code!
+This Python script provides a numerical solution to a 1D heat transfer problem using the Backward Euler method. The code utilizes the finite element method to discretize the domain, and Dirichlet boundary conditions are applied to simulate heat transfer within the specified boundaries.
+
+#### Key Components:
+1. Grid and Connectivity Map:
+- Generates a uniform grid and connectivity map for the finite element method.
+2. Basis Functions and Derivatives:
+- Defines linear basis functions and their derivatives on the parent element.
+3. Matrix Assembly:
+- Initializes and assembles the mass (M) and stiffness (K) matrices based on the finite element method.
+4. Dirichlet Boundary Conditions:
+- Applies Dirichlet boundary conditions to the stiffness and mass matrices.
+5. Initialization:
+- Sets the initial condition u to a sine function.
+6. Time-Stepping Loop (Backward Euler):
+- Performs a time-stepping loop using the Backward Euler method to numerically solve the heat equation.
+7. Building Right-Hand Side (RHS) Vector:
+- Constructs the time-dependent right-hand side (RHS) vector using the given source term.
+8. Backward Euler Update:
+- Applies the Backward Euler update to solve the system of equations at each time step.
+9. Plotting:
+- Plots the initial condition and the numerical solution at selected time steps.
+- Compares the numerical solution with the analytical solution at the final time.
+
+#### Usage:
+Adjust parameters such as the number of nodes, boundaries, time steps, and boundary conditions as needed.
+Run the script to obtain visualizations of the numerical solution's evolution over time.
+
+#### Dependencies:
+NumPy: For numerical operations.
+Matplotlib: For plotting.
+
+#### Notes:
+The script is designed to be a starting point for solving 1D heat transfer problems using the Backward Euler method. Users can modify parameters and extend the code for specific applications.
+### Results
 When the time-step is equal to or greater than the spatial step size, the backward Euler method remains stable, and the numerical solution does not exhibit the instability issues observed with the forward Euler method.
 
 The backward Euler method is an implicit time-stepping method, which means it involves solving a linear system of equations at each time step. In the case of this heat transfer problem, the linear system involves the mass matrix (M) and the stiffness matrix (K). The implicit nature of backward Euler allows it to handle larger time-step sizes compared to explicit methods like forward Euler.
@@ -65,8 +100,6 @@ The backward Euler method is an implicit time-stepping method, which means it in
 When the time-step is equal to or greater than the spatial step size, the backward Euler method remains unconditionally stable. This stability is a desirable property because it allows for larger time-step sizes, potentially reducing the computational cost of the simulation.
 
 In summary, backward Euler is more robust in handling larger time-step sizes, and it remains stable even when the time-step is equal to or greater than the spatial step size.
-
-### Results
 
 
 ## What are the differences between the two methods?
